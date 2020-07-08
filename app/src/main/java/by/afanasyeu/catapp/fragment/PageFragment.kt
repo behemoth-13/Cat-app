@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import by.afanasyeu.catapp.R
+import by.afanasyeu.catapp.adapter.cats.CatAdapter
 import kotlinx.android.synthetic.main.fragment_page.*
 
 class PageFragment : Fragment() {
+    private val adapter = CatAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -19,8 +21,13 @@ class PageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerViewCatList.adapter = adapter
         val catList = requireArguments().getLongArray(LIST_IDS)?.toList()
-        println("catlistSize = ${catList?.size}")
+        adapter.submitList(catList)
+    }
+
+    fun updateCats(catList: List<Long>) {
+        adapter.submitList(catList)
     }
 
     companion object {

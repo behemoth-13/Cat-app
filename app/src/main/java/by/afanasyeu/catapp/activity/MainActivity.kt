@@ -2,7 +2,10 @@ package by.afanasyeu.catapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import by.afanasyeu.catapp.R
 import by.afanasyeu.catapp.adapter.page.PageAdapter
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initView()
         initViewModel()
+        initClickListeners()
     }
 
     private fun initView() {
@@ -30,5 +34,21 @@ class MainActivity : AppCompatActivity() {
         viewModel.catsList.observe(this, Observer {
             adapter.submitList(it)
         })
+    }
+
+    private fun initClickListeners() {
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_add -> {
+                    Toast.makeText(this, "catch", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.action_reload -> {
+                    Toast.makeText(this, "action_reload", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }
