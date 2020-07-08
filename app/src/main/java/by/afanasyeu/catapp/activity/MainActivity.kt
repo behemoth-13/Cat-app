@@ -2,10 +2,7 @@ package by.afanasyeu.catapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import by.afanasyeu.catapp.R
 import by.afanasyeu.catapp.adapter.page.PageAdapter
@@ -27,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         pagerCats.adapter = adapter
+        pagerCats.offscreenPageLimit = 1
         TabLayoutMediator(tabLayoutIndicator, pagerCats) { _, _ -> }.attach()
     }
 
@@ -40,11 +38,11 @@ class MainActivity : AppCompatActivity() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_add -> {
-                    Toast.makeText(this, "catch", Toast.LENGTH_SHORT).show()
+                    viewModel.addImage()
                     true
                 }
                 R.id.action_reload -> {
-                    Toast.makeText(this, "action_reload", Toast.LENGTH_SHORT).show()
+                    viewModel.clear()
                     true
                 }
                 else -> false
