@@ -7,8 +7,9 @@ import by.afanasyeu.catapp.fragment.PageFragment
 
 private const val PAGE_SIZE = 70
 
-class PageAdapter(activity: FragmentActivity, private var catIds: List<Long>) :
-    FragmentStateAdapter(activity) {
+class PageAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+
+    private var catIds: List<Long> = listOf()
 
     override fun getItemCount(): Int {
         return catIds.size.let {
@@ -29,5 +30,10 @@ class PageAdapter(activity: FragmentActivity, private var catIds: List<Long>) :
             toIndexTheory
         }
         return PageFragment.newInstance(catIds.subList(fromIndex, toIndex).toLongArray())
+    }
+
+    fun submitList(newCatIds: List<Long>) {
+        catIds = newCatIds
+        notifyDataSetChanged()
     }
 }
